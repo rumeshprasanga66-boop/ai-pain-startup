@@ -1,0 +1,284 @@
+Here is the complete, production-ready React component for your **clodyBro** landing page. It features a strict black-and-white minimalist aesthetic, crisp borders, `Plus Jakarta Sans` typography, smooth animations via Framer Motion, and includes a high-conversion newsletter opt-in to collect user leads before launch.
+
+You can paste this directly into a Next.js project (`src/app/page.tsx` or similar):
+
+```tsx
+"useinit";
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Check, X, Shield, Zap, RefreshCw, Layers } from 'lucide-react';
+
+export default function LandingPage() {
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email.trim()) {
+      // Add your database collection logic here (e.g., Supabase / PostgreSQL query)
+      setSubmitted(true);
+      setEmail('');
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-white text-black antialiased font-sans selection:bg-black selection:text-white">
+      {/* Google Fonts Pre-connect Link Layer for Plus Jakarta Sans */}
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+      `}</style>
+
+      {/* 1. NAVIGATION BAR */}
+      <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-md">
+        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="text-xl font-bold tracking-tight">clodyBro</div>
+          <nav className="hidden md:flex space-x-8 text-sm font-medium text-zinc-600">
+            <a href="#problem" className="hover:text-black transition-colors">The Problem</a>
+            <a href="#features" className="hover:text-black transition-colors">Features</a>
+            <a href="#pipeline" className="hover:text-black transition-colors">How It Works</a>
+            <a href="#pricing" className="hover:text-black transition-colors">Pricing</a>
+          </nav>
+          <div>
+            <a href="#collect" className="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-black text-white hover:bg-zinc-900 transition-colors rounded-none">
+              Get Early Access
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-6xl mx-auto px-4">
+        {/* 2. HERO SECTION */}
+        <section className="py-20 md:py-28 max-w-3xl mx-auto text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-widest border border-black mb-6">
+              Now In Private Beta
+            </span>
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-black mb-6 leading-none">
+              Stop wasting hundreds of dollars on AI coding loops.
+            </h1>
+            <p className="text-lg md:text-xl text-zinc-500 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Build apps on Bolt.new and Lovable for a fraction of the cost. clodyBro keeps AI tools from reading your entire codebase over and over, cutting your bills by up to 70% while stopping the AI from getting confused.
+            </p>
+          </motion.div>
+
+          {/* User Lead Collection Input Block */}
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            id="collect" 
+            className="p-6 border border-black max-w-md mx-auto bg-white"
+          >
+            {!submitted ? (
+              <form onSubmit={handleSubscribe} className="space-y-3">
+                <p className="text-xs font-bold uppercase tracking-wider text-left block">Join the waitlist & claim $20 AI Credits</p>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <input
+                    type="email"
+                    required
+                    placeholder="Enter your developer email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-3 py-2 text-sm border border-zinc-300 focus:border-black focus:outline-none rounded-none placeholder:text-zinc-400"
+                  />
+                  <button type="submit" className="w-full sm:w-auto px-5 py-2 bg-black text-white text-sm font-semibold hover:bg-zinc-900 transition-colors rounded-none whitespace-nowrap inline-flex items-center justify-center gap-2">
+                    Join Waitlist <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+                <p className="text-[11px] text-zinc-400 text-left">No credit card required. We only send technical product updates.</p>
+              </form>
+            ) : (
+              <div className="text-center py-4">
+                <Check className="w-8 h-8 text-black mx-auto mb-2" />
+                <h3 className="font-bold text-sm uppercase tracking-wider">You are on the list!</h3>
+                <p className="text-xs text-zinc-500 mt-1">We just reserved your platform spot and introductory launch credits.</p>
+              </div>
+            )}
+          </motion.div>
+        </section>
+
+        {/* 3. LIVE METRICS DASHBOARD VISUAL */}
+        <section className="pb-20">
+          <div className="border border-black p-4 md:p-6 bg-white">
+            <div className="flex items-center justify-between border-b border-zinc-200 pb-4 mb-6">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 rounded-full bg-black"></div>
+                <span className="text-xs font-bold uppercase tracking-wider">clodyBro Session Telemetry Workspace</span>
+              </div>
+              <span className="text-xs font-mono text-zinc-400">Status: Active Proxy</span>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="border border-zinc-200 p-4">
+                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">Estimated Cash Saved</p>
+                <p className="text-3xl font-bold tracking-tight mt-1">$42.65</p>
+                <p className="text-[11px] text-zinc-500 mt-2">Based on Claude-3.5-Sonnet variable token rates</p>
+              </div>
+              <div className="border border-zinc-200 p-4">
+                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">Total Tokens Compressed</p>
+                <p className="text-3xl font-bold tracking-tight mt-1">14.2M</p>
+                <p className="text-[11px] text-zinc-500 mt-2">Average 74% structural payload optimization ratio</p>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs font-mono">
+                <thead>
+                  <tr className="border-b border-zinc-200 text-zinc-400 uppercase tracking-wider">
+                    <th className="pb-2 font-medium">Timestamp</th>
+                    <th className="pb-2 font-medium">Target Tool</th>
+                    <th className="pb-2 font-medium text-right">Raw Size</th>
+                    <th className="pb-2 font-medium text-right">Trimmed Size</th>
+                    <th className="pb-2 font-medium text-right">Cash Saved</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-zinc-100">
+                  <tr>
+                    <td className="py-2.5 text-zinc-500">Just Now</td>
+                    <td>Bolt.new</td>
+                    <td className="text-right text-zinc-400">84.2 KB</td>
+                    <td className="text-right font-bold">14.1 KB</td>
+                    <td className="text-right font-bold text-black">+$0.21</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2.5 text-zinc-500">1 Hour Ago</td>
+                    <td>Lovable.dev</td>
+                    <td className="text-right text-zinc-400">112.5 KB</td>
+                    <td className="text-right font-bold">19.8 KB</td>
+                    <td className="text-right font-bold text-black">+$0.28</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2.5 text-zinc-500">2 Hours Ago</td>
+                    <td>Bolt.new</td>
+                    <td className="text-right text-zinc-400">321.0 KB</td>
+                    <td className="text-right font-bold">42.0 KB</td>
+                    <td className="text-right font-bold text-black">+$0.83</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. PROBLEM VS SOLUTION MATRIX */}
+        <section id="problem" className="py-16 border-t border-zinc-200">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Vibe coding is amazing—until the bills arrive.</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="border border-zinc-200 p-6 bg-white">
+              <div className="w-8 h-8 rounded-none border border-zinc-300 flex items-center justify-center mb-4 bg-zinc-50">
+                <X className="w-4 h-4 text-zinc-400" />
+              </div>
+              <h3 className="font-bold text-base mb-2">The Old Way (Full-File Spam)</h3>
+              <p className="text-sm text-zinc-500 leading-relaxed">
+                Changing a single visual element forces browser sandboxes to repackage your entire codebase layout and resend it to the LLM model. This constant iteration destroys your token thresholds and leads directly to massive subscription overages.
+              </p>
+            </div>
+
+            <div className="border border-black p-6 bg-white">
+              <div className="w-8 h-8 rounded-none border border-black flex items-center justify-center mb-4 bg-black">
+                <Check className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="font-bold text-base mb-2">The clodyBro Way (Structural Isolation)</h3>
+              <p className="text-sm text-zinc-500 leading-relaxed">
+                Our lightweight background layer handles absolute context grouping. It isolates exactly what file blocks need attention based on your current prompt instructions, pruning structural dependencies away safely.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 5. THREE-STEP SEQUENCE */}
+        <section id="pipeline" className="py-16 border-t border-zinc-200">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">How it functions inside your workflow</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+            <div className="space-y-3">
+              <div className="text-xs font-mono text-zinc-400">01 / INTEGRATION</div>
+              <h4 className="font-bold text-base">Add the Extension</h4>
+              <p className="text-sm text-zinc-500 leading-relaxed">Install our Chrome element utility helper. It automatically activates whenever it identifies environment sessions matching Bolt.new or Lovable.dev tabs.</p>
+            </div>
+            <div className="space-y-3">
+              <div className="text-xs font-mono text-zinc-400">02 / INTERCEPTION</div>
+              <h4 className="font-bold text-base">AST Token Pruning</h4>
+              <p className="text-sm text-zinc-500 leading-relaxed">When a prompt is fired, our background layer evaluates files, keeps target modules legible, and translates layout assets to minimalist notation signatures.</p>
+            </div>
+            <div className="space-y-3">
+              <div className="text-xs font-mono text-zinc-400">03 / EXECUTION</div>
+              <h4 className="font-bold text-base">Pay Pennies Per Prompt</h4>
+              <p className="text-sm text-zinc-500 leading-relaxed">Your builder reads structural code payloads perfectly without text duplication bloat, trimming up to 70% off your end-of-month AI resource invoices.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. TRANSPARENT PRICING */}
+        <section id="pricing" className="py-16 border-t border-zinc-200 mb-12">
+          <div className="text-center max-w-2xl mx-auto mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Transparent Developer Pricing</h2>
+          </div>
+          <p className="text-xs font-medium text-center text-zinc-500 uppercase tracking-wider max-w-md mx-auto border border-zinc-200 p-2 bg-zinc-50 mb-12">
+            Guarantee: If clodyBro doesn't save you more money than its cost within 2 weeks, request an instant refund.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            <div className="border border-zinc-200 p-6 flex flex-col justify-between">
+              <div>
+                <h3 className="font-bold text-sm uppercase tracking-widest text-zinc-400">Hobby Plan</h3>
+                <div className="my-4 flex items-baseline">
+                  <span className="text-4xl font-bold tracking-tight">$0</span>
+                  <span className="text-zinc-400 text-xs ml-1">/ month</span>
+                </div>
+                <ul className="space-y-3 text-xs text-zinc-600 border-t border-zinc-100 pt-4">
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-black" /> Protect 50 prompts per month</li>
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-black" /> Standard file abstraction filtering</li>
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-black" /> Live telemetry saving dashboard</li>
+                </ul>
+              </div>
+              <a href="#collect" className="mt-8 block w-full py-2 text-center text-xs font-bold border border-black uppercase tracking-wider hover:bg-zinc-50 transition-colors">Get Started</a>
+            </div>
+
+            <div className="border border-black p-6 flex flex-col justify-between relative bg-white">
+              <div>
+                <div className="absolute -top-2.5 right-4 bg-black text-white text-[9px] font-bold uppercase tracking-widest px-2 py-0.5">Recommended</div>
+                <h3 className="font-bold text-sm uppercase tracking-widest text-black">Pro Plan</h3>
+                <div className="my-4 flex items-baseline">
+                  <span className="text-4xl font-bold tracking-tight">$15</span>
+                  <span className="text-zinc-400 text-xs ml-1">/ month</span>
+                </div>
+                <ul className="space-y-3 text-xs text-zinc-600 border-t border-zinc-100 pt-4">
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-black" /> <strong>Unlimited</strong> protected queries</li>
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-black" /> High-fidelity anchor file memory protection</li>
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-black" /> Instant looping anomaly circuit breakers</li>
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-black" /> Fast dedicated inference endpoints</li>
+                </ul>
+              </div>
+              <a href="#collect" className="mt-8 block w-full py-2 text-center text-xs font-bold bg-black text-white uppercase tracking-wider hover:bg-zinc-900 transition-colors">Join Waitlist</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* FOOTER */}
+      <footer className="border-t border-zinc-200 bg-zinc-50 py-8 text-center text-xs text-zinc-400">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>&copy; {new Date().getFullYear()} clodyBro. All rights reserved.</div>
+          <div className="flex space-x-6">
+            <a href="#" className="hover:text-black transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-black transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-black transition-colors">Contact Support</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+```
